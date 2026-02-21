@@ -1,0 +1,99 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 20,
+    "spacing": 4,
+
+    "modules-left": ["hyprland/workspaces"],
+    "modules-center": ["clock", "keyboard-state"],
+    "modules-right": ["mpd", "network", "bluetooth", "pulseaudio", "cpu", "battery", "custom/power"],
+
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+	"all-outputs": true,
+	"warp-on-scroll": false,
+        "format": "{id}",
+	"persistent-workspaces": {
+	    "*": [1, 2, 3, 4]
+	}
+    },
+
+    "clock": {
+        "format": "{:%I:%M %p}",
+        "format-alt": "{:%A, %B %d, %Y}"
+    },
+
+    "keyboard-state": {
+        "capslock": true,
+        "format": "{icon}",
+        "format-icons": {
+            "locked": "󰪛 ",
+            "unlocked": ""
+        }
+    },
+
+    "mpd": {
+        "format": "{stateIcon} {artist} - {title}",
+        "format-stopped": "",
+        "state-icons": {
+            "paused": "",
+            "playing": ""
+        }
+    },
+    
+    "network": {
+    "format-wifi": "󰖩 {signalStrength}% ",
+    "format-ethernet": "󰈁 ",
+    "format-disconnected": "󰖪 ",
+    "on-click": "ghostty -e nmtui",
+    "tooltip-text": "{essid}"
+    },
+
+    "tray": {
+        "spacing": 4
+    },
+
+    "cpu": {
+        "format": [" {usage}%"],
+        "interval": 2
+    },
+    
+    "bluetooth": {
+    "format-on": "󰂯 ",
+    "format-off": "󰂲 ",
+    "format-connected": "󰂱 ",
+    "on-click": "ghostty -e bluetui",
+    "tooltip-text": "{controller_alias}"
+},
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "󰝟 ",
+        "on-click": "pavucontrol",
+        "format-icons": {
+            "default": ["", " ", " "]
+        }
+    },
+
+    "battery": {
+        "format": "{icon} {capacity}%",
+        "format-icons": ["", "", "", "", ""],
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%"
+    },
+
+    "custom/power": {
+        "format": "󰣇 ",
+        "on-click": "GTK_THEME=Adwaita:dark wlogout",
+        "tooltip": false
+    },
+
+    "custom/swaync": {
+    "format": "󰂚 {}",
+    "exec": "swaync-client --subscribe-waybar",
+    "on-click": "swaync-client -t",
+    "on-click-right": "swaync-client -d",
+    "return-type": "json",
+    "escape": true
+    }
+}

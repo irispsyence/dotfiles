@@ -1,0 +1,9 @@
+fish/fish_history
+fish/fish_variables
+fish/conf.d/secrets.fish
+local/share/applications/
+*secrets*
+*password*
+*.key
+*.pem
+.env

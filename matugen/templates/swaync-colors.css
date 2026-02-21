@@ -1,0 +1,28 @@
+:root {
+  --cc-bg: {{colors.background.default.hex}}cc;
+  --noti-border-color: {{colors.surface_variant.default.hex}}40;
+  --noti-bg: {{colors.surface.default.hex}};
+  --noti-bg-alpha: 0.9;
+  --noti-bg-darker: {{colors.background.default.hex}};
+  --noti-bg-hover: {{colors.surface_variant.default.hex}};
+  --noti-bg-focus: {{colors.surface_variant.default.hex}}99;
+  --noti-close-bg: {{colors.surface_variant.default.hex}};
+  --noti-close-bg-hover: {{colors.secondary.default.hex}};
+  --text-color: {{colors.on_background.default.hex}};
+  --text-color-disabled: {{colors.on_surface.default.hex}}80;
+  --bg-selected: {{colors.primary.default.hex}};
+}
+
+@define-color cc-bg {{colors.background.default.hex}};
+@define-color noti-border-color {{colors.surface_variant.default.hex}};
+@define-color noti-bg {{colors.surface.default.hex}};
+@define-color noti-bg-opaque {{colors.surface.default.hex}};
+@define-color noti-bg-darker {{colors.background.default.hex}};
+@define-color noti-bg-hover {{colors.surface_variant.default.hex}};
+@define-color noti-bg-hover-opaque {{colors.surface_variant.default.hex}};
+@define-color noti-bg-focus {{colors.surface_variant.default.hex}};
+@define-color noti-close-bg {{colors.surface_variant.default.hex}};
+@define-color noti-close-bg-hover {{colors.secondary.default.hex}};
+@define-color text-color {{colors.on_background.default.hex}};
+@define-color text-color-disabled {{colors.on_surface.default.hex}};
+@define-color bg-selected {{colors.primary.default.hex}};
