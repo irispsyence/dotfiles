@@ -5,7 +5,7 @@
 }
 
 window {
-    background-image: image(url("$HOME/photos/wallpapers/1-osaka-jade-bg.jpg"));
+    background-image: image(url("/home/yourusername/photos/wallpapers/1-osaka-jade-bg.jpg"));
     background-size: cover;
     background-position: center;
 }
