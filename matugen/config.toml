@@ -33,3 +33,8 @@ output_path = "~/.config/wlogout/style.css"
 [templates.fish]
 input_path = "~/.config/matugen/templates/fish-colors.fish"
 output_path = "~/.config/fish/colors.fish"
+
+[templates.tmux]
+input_path = "~/.config/matugen/templates/tmux.conf"
+output_path = "~/.config/tmux/colors.conf"
+post_hook = "tmux source-file ~/.config/tmux/tmux.conf 2>/dev/null || true"
