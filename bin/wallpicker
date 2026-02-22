@@ -1,0 +1,17 @@
+#!/bin/bash
+export WAYLAND_DISPLAY=${WAYLAND_DISPLAY:-wayland-1}
+export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/run/user/1000}
+
+SELECTED=$(mktemp)
+echo "tmpfile: $SELECTED" >> /tmp/wallpicker-debug.log
+yazi ~/photos/wallpapers/ --chooser-file="$SELECTED"
+WALLPAPER=$(cat "$SELECTED")
+echo "selected: $WALLPAPER" >> /tmp/wallpicker-debug.log
+rm "$SELECTED"
+
+if [ -n "$WALLPAPER" ]; then
+    echo "launching wallpaper" >> /tmp/wallpicker-debug.log
+    setsid $HOME/.local/bin/wallpaper "$WALLPAPER" > /tmp/wallpaper-debug.log 2>&1
+else
+    echo "WALLPAPER empty" >> /tmp/wallpicker-debug.log
+fi
