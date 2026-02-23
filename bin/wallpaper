@@ -23,11 +23,9 @@ WAYLAND_DISPLAY=wayland-1 XDG_RUNTIME_DIR=/run/user/1000 hyprpaper --config ~/.c
 disown
 echo "hyprpaper launched" >> /tmp/wallpaper-debug.log
 
-# Colors update in background while wallpaper is already showing
+# Run matugen then let reload.sh handle everything else
 {
     matugen image "$WALLPAPER" --mode dark -t scheme-tonal-spot
     sed -i "s|path = .*|path = $WALLPAPER|" ~/.config/hypr/hyprlock.conf
     sed -i "s|background-image: image(url(\".*\"))|background-image: image(url(\"$WALLPAPER\"))|" ~/.config/wlogout/style.css
-    pkill -SIGUSR2 waybar
-    pkill -SIGUSR1 swaync
 } &
