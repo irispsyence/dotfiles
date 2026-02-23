@@ -39,7 +39,9 @@
         "state-icons": {
             "paused": "",
             "playing": ""
-        }
+        },
+	"max-length": 35,
+	"rotate": 0
     },
     
     "network": {

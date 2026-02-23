@@ -53,11 +53,13 @@
     }
   },
   "widgets": [
+    "mpris",
     "inhibitors",
     "title",
     "dnd",
     "notifications"
   ],
+
   "widget-config": {
     "notifications": {
       "vexpand": true
@@ -83,7 +85,9 @@
       "blacklist": [],
       "autohide": false,
       "show-album-art": "always",
-      "loop-carousel": false
+      "loop-carousel": false,
+      "image-size": 64,
+      "image-radius": 12
     },
     "buttons-grid": {
       "buttons-per-row": 7,
