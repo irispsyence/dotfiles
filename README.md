@@ -62,6 +62,7 @@ dotfiles/
 3. Set up files that require local path customization (replace `/home/yourusername` with your actual path):
    ```bash
    cp hypr/hyprpaper.conf.example ~/.config/hypr/hyprpaper.conf
+   cp hypr/hyprlock.conf.example ~/.config/hypr/hyprlock.conf
    cp matugen/templates/wlogout-colors.css.example ~/.config/matugen/templates/wlogout-colors.css
    cp wlogout/style.css.example ~/.config/wlogout/style.css
    ```
