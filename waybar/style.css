@@ -21,21 +21,22 @@ window#waybar {
 
 #workspaces button.active {
     color: @primary;
-    border-bottom: 2px solid @primary;
+    border-bottom: 2px solid @on_primary;
 }
 
 #workspaces button:hover {
     background: @surface_variant;
 }
 
+#custom-swaync,
 #clock,
 #keyboard-state,
-#mpd,
+#mpris,
 #cpu,
 #pulseaudio,
 #battery,
 #tray,
-#bluetooth
+#bluetooth,
 #custom-power {
     padding: 0 8px;
     color: @on_background;
@@ -48,6 +49,10 @@ window#waybar {
 #pulseaudio {
     padding: 0 3px;
     color: @secondary;
+}
+
+#custom-swaync {
+    color: @primary;
 }
 
 #cpu {
@@ -65,7 +70,7 @@ window#waybar {
 }
 
 #battery.charging {
-    color: @primary;
+    color: @on_primary;
 }
 
 #battery.warning:not(.charging) {
@@ -81,7 +86,7 @@ window#waybar {
     font-size: 16px;
 }
 
-#mpd {
+#mpris {
     color: @secondary;
 }
 

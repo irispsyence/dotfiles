@@ -4,9 +4,9 @@
     "height": 20,
     "spacing": 4,
 
-    "modules-left": ["hyprland/workspaces"],
+    "modules-left": ["cpu", "hyprland/workspaces"],
     "modules-center": ["clock", "keyboard-state"],
-    "modules-right": ["mpd", "network", "bluetooth", "pulseaudio", "cpu", "battery", "custom/power"],
+    "modules-right": ["mpris", "custom/swaync", "network", "bluetooth", "pulseaudio", "battery", "custom/power"],
 
     "hyprland/workspaces": {
         "disable-scroll": true,
@@ -32,9 +32,10 @@
         }
     },
 
-    "mpd": {
+    "mpris": {
         "format": "{stateIcon} {artist} - {title}",
-        "format-stopped": "",
+        "format-paused": " {artist} - {title}",
+	"format-stopped": "",
         "state-icons": {
             "paused": "",
             "playing": ""
@@ -54,7 +55,7 @@
     },
 
     "cpu": {
-        "format": [" {usage}%"],
+        "format": ["{usage}%"],
         "interval": 2
     },
     
@@ -78,8 +79,9 @@
     "battery": {
         "format": "{icon} {capacity}%",
         "format-icons": ["", "", "", "", ""],
-        "format-charging": " {capacity}%",
-        "format-plugged": " {capacity}%"
+        "format-charging": "{icon} {capacity}%",
+        "format-icons": ["", "", "", "", ""],
+        "format-plugged": "{icon} {capacity}%"
     },
 
     "custom/power": {
@@ -89,7 +91,7 @@
     },
 
     "custom/swaync": {
-    "format": "󰂚 {}",
+    "format": "󰂚 ",
     "exec": "swaync-client --subscribe-waybar",
     "on-click": "swaync-client -t",
     "on-click-right": "swaync-client -d",
