@@ -81,13 +81,14 @@
       "max-lines": 5,
       "text": "Label Text"
     },
+
     "mpris": {
       "blacklist": [],
       "autohide": false,
-      "show-album-art": "always",
+      "show-album-art": "never",
       "loop-carousel": false,
       "image-size": 64,
-      "image-radius": 12
+      "image-radius": 12 
     },
     "buttons-grid": {
       "buttons-per-row": 7,
