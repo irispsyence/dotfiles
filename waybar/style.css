@@ -2,7 +2,7 @@
 
 * {
     font-family: "JetBrainsMono Nerd Font";
-    font-size: 12px;
+    font-size: 11px;
     border: none;
     border-radius: 0;
     min-height: 0;
@@ -14,7 +14,7 @@ window#waybar {
 }
 
 #workspaces button {
-    padding: 0 4px;
+    padding: 0 3px;
     color: @on_surface;
     background: transparent;
 }
@@ -37,6 +37,7 @@ window#waybar {
 #battery,
 #tray,
 #bluetooth,
+#custom-rofi,
 #custom-power {
     padding: 0 8px;
     color: @on_background;
@@ -70,7 +71,7 @@ window#waybar {
 }
 
 #battery.charging {
-    color: @on_primary;
+    color: @primary;
 }
 
 #battery.warning:not(.charging) {
@@ -88,6 +89,10 @@ window#waybar {
 
 #mpris {
     color: @secondary;
+}
+
+#custom-rofi {
+    color: @primary;
 }
 
 tooltip {

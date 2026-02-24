@@ -4,7 +4,7 @@
     "height": 20,
     "spacing": 4,
 
-    "modules-left": ["cpu", "hyprland/workspaces"],
+    "modules-left": ["cpu", "hyprland/workspaces", "custom/rofi"],
     "modules-center": ["clock", "keyboard-state"],
     "modules-right": ["mpris", "custom/swaync", "network", "bluetooth", "pulseaudio", "battery", "custom/power"],
 
@@ -101,5 +101,11 @@
     "on-click-right": "swaync-client -d",
     "return-type": "json",
     "escape": true
+    },
+    
+    "custom/rofi": {
+    "format": "󰍉",
+    "on-click": "~/.config/rofi/launcher.sh",
+    "tooltip": false
     }
 }
