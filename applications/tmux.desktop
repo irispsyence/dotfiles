@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Tmux
+Exec=ghostty -e tmux
+Icon=bluetooth
+Type=Application
+Categories=Utility;

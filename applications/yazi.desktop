@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Yazi
+Exec=ghostty -e yazi
+Icon=system-file-manager
+Type=Application
+Categories=Utility;FileManager;
