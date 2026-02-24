@@ -1,0 +1,121 @@
+/* Rofi Launcher Theme */
+
+@import "/home/iris/.config/rofi/colors.rasi"
+
+* {
+    font:                       "JetBrainsMono Nerd Font 12";
+    background-color:           transparent;
+    text-color:                 @on-background;
+    border:                     0;
+    margin:                     0;
+    padding:                    0;
+    spacing:                    0;
+}
+
+window {
+    background-color:           @background;
+    border:                     1px solid;
+    border-color:               @surface-variant;
+    border-radius:              0 0 10px 10px;
+    width:                      480px;
+    location:                   north;
+    anchor:                     north;
+}
+
+/* Input bar */
+inputbar {
+    background-color:           @surface;
+    border-radius:              0;
+    padding:                    10px 14px;
+    spacing:                    8px;
+    children:                   [ prompt, entry ];
+}
+
+prompt {
+    background-color:           transparent;
+    text-color:                 @primary;
+    font:                       "JetBrainsMono Nerd Font Bold 12";
+    vertical-align:             0.5;
+    enabled:                    false;
+}
+
+entry {
+    background-color:           transparent;
+    text-color:                 @on-surface;
+    placeholder:                "  Search apps...";
+    placeholder-color:          @surface-variant;
+    cursor:                     text;
+    vertical-align:             0.5;
+}
+
+/* Pinned tools message bar */
+message {
+    enabled:                    true;
+    background-color:           @surface;
+    border:                     0 0 1px 0;
+    border-color:               @surface-variant;
+    padding:                    0;
+}
+
+textbox {
+    background-color:           transparent;
+    text-color:                 @primary;
+    padding:                    6px 14px;
+    min-height:                 20px;
+    font:                       "JetBrainsMono Nerd Font 10";
+    horizontal-align:           0.5;
+}
+
+/* Results list */
+listview {
+    background-color:           @background;
+    padding:                    6px 0;
+    lines:                      7;
+    columns:                    1;
+    fixed-height:               true;
+    scrollbar:                  false;
+}
+
+element {
+    background-color:           transparent;
+    padding:                    8px 14px;
+    spacing:                    10px;
+    border-radius:              4px;
+    orientation:                horizontal;
+    children:                   [ element-icon, element-text ];
+}
+
+element normal.normal {
+    background-color:           transparent;
+    text-color:                 @on-background;
+}
+
+element selected.normal {
+    background-color:           @surface-variant;
+    text-color:                 @primary;
+}
+
+element alternate.normal {
+    background-color:           transparent;
+}
+
+element-icon {
+    size:                       18px;
+    vertical-align:             0.5;
+}
+
+element-text {
+    background-color:           transparent;
+    text-color:                 inherit;
+    vertical-align:             0.5;
+    highlight:                  bold;
+}
+
+/* Scrollbar hidden */
+scrollbar {
+    width:                      0;
+}
+
+mainbox {
+    children: [ message, inputbar, listview ];
+}

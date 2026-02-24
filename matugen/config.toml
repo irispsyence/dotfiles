@@ -7,7 +7,6 @@ output_path = "~/.config/waybar/colors.css"
 [templates.hyprland]
 input_path = "~/.config/matugen/templates/hyprland-colors.conf"
 output_path = "~/.config/hypr/colors.conf"
-post_hook = "bash ~/.config/matugen/reload.sh"
 
 [templates.hyprlock]
 input_path = "~/.config/matugen/templates/hyprlock.conf"
@@ -24,6 +23,11 @@ output_path = "~/.config/fish/colors.fish"
 [templates.swaync]
 input_path = "~/.config/matugen/templates/swaync-colors.css"
 output_path = "~/.config/swaync/colors.css"
+post_hook = "bash ~/.config/matugen/reload.sh"
+
+[templates.rofi]
+input_path  = "~/.config/matugen/templates/rofi-colors.rasi"
+output_path = "~/.config/rofi/colors.rasi"
 
 [templates.wofi]
 input_path = "~/.config/matugen/templates/wofi-colors.css"
@@ -36,3 +40,5 @@ output_path = "~/.config/wlogout/style.css"
 [templates.tmux]
 input_path = "~/.config/matugen/templates/tmux.conf"
 output_path = "~/.config/tmux/colors.conf"
+
+
