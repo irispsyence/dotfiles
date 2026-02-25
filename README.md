@@ -88,3 +88,7 @@ These files exist locally but are not tracked — use the `.example` versions as
 | `wlogout/style.css` | Contains local wallpaper path |
 | `fish/fish_variables` | Contains local shell variables |
 | `fish/fish_history` | Shell history |
+
+- pavucontrol to dark mode:
+    - gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+    - gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
