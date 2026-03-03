@@ -3,14 +3,14 @@ accountsservice 23.13.9-3
 alsa-firmware 1.2.4-4
 alsa-plugins 1:1.2.12-5
 alsa-utils 1.2.15.2-2
-amd-ucode 20260110-1
+amd-ucode 20260221-1
 aspell 0.60.8.2-1
 b43-fwcutter 019-6
 base 3-3
 base-devel 1-2
 bash-completion 2.17.0-3
 bat 0.26.1-2
-bind 9.20.18-1
+bind 9.20.19-1
 bluetui 0.8.1-1
 bluez 5.86-2
 bluez-utils 5.86-2
@@ -29,7 +29,7 @@ dmraid 1.0.0.rc16.3-15
 dnsmasq 2.92-1
 dolphin 25.12.2-1
 dosfstools 4.2-5
-downgrade 11.8.0-1
+downgrade 11.8.1-1
 dracut 109_eos-1
 duf 0.9.1-1
 e2fsprogs 1.47.3-2
@@ -58,6 +58,7 @@ fuzzel 1.14.0-2
 ghostty 1.2.3-3
 git 2.53.0-1
 glances 4.5.0.5-1
+gnome-themes-extra 1:3.28-1
 grim 1.5.0-2
 grub 2:2.14-1
 gst-libav 1.28.0-2
@@ -67,7 +68,7 @@ gst-plugins-ugly 1.28.0-2
 haveged 1.9.19-1
 hdparm 9.65-3
 hwdetect 2025.08.16.1333-1
-hwinfo 25.0-2
+hwinfo 25.2-1
 hypridle 0.1.7-6
 hyprland 0.53.3-2
 hyprlauncher 0.1.5-2
@@ -82,7 +83,7 @@ inxi 3.3.40.1-1
 iptables-nft 1:1.8.11-2
 iwd 3.11-2
 jfsutils 1.1.15-9
-kwallet-pam 6.6.0-1
+kwallet-pam 6.6.1-1
 kwallet5 5.116.0-5
 kwalletmanager 25.12.2-1
 less 1:692-1
@@ -90,7 +91,7 @@ libdvdcss 1.5.0-1
 libgsf 1.14.55-1
 libopenraw 0.3.7-2
 linux 6.18.9.arch1-2
-linux-firmware 20260110-1
+linux-firmware 20260221-1
 linux-headers 6.18.9.arch1-2
 logrotate 3.22.0-1
 lsb-release 2.0.r55.a25a4fc-1
@@ -123,7 +124,7 @@ nss-mdns 0.15.1-2
 ntfs-3g 2022.10.3-2
 ntp 4.2.8.p18-6
 openssh 10.2p1-2
-os-prober 1.83-1
+os-prober 1.84-1
 pacman-contrib 1.13.1-1
 paru 2.1.0-2.1
 pavucontrol 1:6.2-1
@@ -133,7 +134,7 @@ pipewire-jack 1:1.4.10-2
 pipewire-pulse 1:1.4.10-2
 pkgfile 25-2
 plocate 1.1.24-1
-poppler-glib 26.01.0-1
+poppler-glib 26.02.0-2
 power-profiles-daemon 0.30-1
 python 3.14.3-1
 python-defusedxml 0.7.1-8
@@ -158,6 +159,7 @@ sudo 1.9.17.p2-2
 swaync 0.12.4-1
 sysfsutils 2.1.1-2
 systemd-sysvcompat 259.1-1
+tailscale 1.94.2-1
 texinfo 7.2-1
 tldr 3.4.4-1
 tmux 3.6_a-1
@@ -172,7 +174,7 @@ unzip 6.0-23
 upower 1.91.1-1
 usb_modeswitch 2.6.2.20251207-1
 usbutils 019-1
-waybar 0.15.0-1
+waybar 0.15.0-2
 welcome 26.1-1
 wget 1.25.0-3
 which 2.23-1

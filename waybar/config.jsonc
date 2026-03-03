@@ -1,12 +1,12 @@
 {
     "layer": "top",
     "position": "top",
-    "height": 20,
-    "spacing": 4,
+    "height": 22,
+    "spacing": 3,
 
-    "modules-left": ["cpu", "hyprland/workspaces", "custom/rofi"],
+    "modules-left": ["custom/power", "hyprland/workspaces", "custom/rofi"],
     "modules-center": ["clock", "keyboard-state"],
-    "modules-right": ["mpris", "custom/swaync", "network", "bluetooth", "pulseaudio", "battery", "custom/power"],
+    "modules-right": ["mpris", "network", "bluetooth", "pulseaudio", "custom/swaync", "battery", "cpu"],
 
     "hyprland/workspaces": {
         "disable-scroll": true,
@@ -20,7 +20,8 @@
 
     "clock": {
         "format": "{:%I:%M %p}",
-        "format-alt": "{:%A, %B %d, %Y}"
+        "format-alt": "{:%A, %B %d, %Y}",
+	"tooltip-format": "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>"
     },
 
     "keyboard-state": {
@@ -49,16 +50,16 @@
     "format-wifi": "󰖩 {signalStrength}% ",
     "format-ethernet": "󰈁 ",
     "format-disconnected": "󰖪 ",
-    "on-click": "ghostty -e nmtui",
+    "on-click": "ghostty --title=nmtui -e nmtui",
     "tooltip-text": "{essid}"
     },
 
     "tray": {
-        "spacing": 4
+        "spacing": 3
     },
 
     "cpu": {
-        "format": "{usage}%",
+        "format": "{usage}% ",
         "interval": 2,
 	"on-click": "ghostty -e btop"
     },
@@ -67,7 +68,7 @@
     "format-on": "󰂯 ",
     "format-off": "󰂲 ",
     "format-connected": "󰂱 ",
-    "on-click": "ghostty -e bluetui",
+    "on-click": "ghostty --title=bluetui -e bluetui",
     "tooltip-text": "{controller_alias}"
 },
 
@@ -89,7 +90,7 @@
     },
 
     "custom/power": {
-        "format": "󰣇 ",
+        "format": "󰣇",
         "on-click": "GTK_THEME=Adwaita:dark wlogout",
         "tooltip": false
     },
