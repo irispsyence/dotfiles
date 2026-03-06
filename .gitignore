@@ -3,6 +3,7 @@ hypr/hyprlock.conf
 fish/fish_history
 fish/fish_variables
 fish/conf.d/secrets.fish
+rofi/launcher.rasi
 wlogout/style.css
 matugen/templates/wlogout-colors.css
 local/share/applications/
