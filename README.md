@@ -9,73 +9,126 @@ My personal configuration files for Arch Linux (EndeavourOS) with Hyprland.
 - **Terminal**: Ghostty
 - **Shell**: Fish
 - **Bar**: Waybar
-- **Launcher**: Hyprlauncher
+- **Launcher**: Rofi (primary, hotkeybound) / Wofi (also configured)
 - **Notifications**: Swaync
 - **File Manager**: Dolphin / Yazi
 - **Browser**: Brave
 - **Theming**: Matugen (dynamic colors from wallpaper)
+- **Multiplexer**: tmux
+- **Editor**: Neovim
 - **Bluetooth**: bluetui
 - **Network Management**: nmtui
 
 ## Structure
 
+Each top-level directory is a [GNU Stow](https://www.gnu.org/software/stow/) package. The internal path mirrors where the files land in `$HOME`, so stow can manage everything from a single target.
+
 ```
 dotfiles/
-├── bin/                      # Wallpaper switcher scripts
+├── applications/             # Custom .desktop files for TUI apps (bluetui, tmux, yazi)
+│   └── .local/share/applications/
+├── bin/                      # Wallpaper scripts (wallpaper + wallpicker)
+│   └── .local/bin/
 ├── fish/                     # Fish shell config
+│   └── .config/fish/
 ├── ghostty/                  # Ghostty terminal config
-├── hypr/                     # Hyprland, hyprlock, hypridle
-│   └── hyprpaper.conf.example   # Copy and update with your wallpaper path
-├── matugen/                  # Matugen config and templates
-│   └── templates/
-│       └── wlogout-colors.css.example  # Copy and update with your wallpaper path
+│   └── .config/ghostty/
+├── hypr/                     # Hyprland, hypridle, hyprlock, hyprpaper
+│   └── .config/hypr/
+├── matugen/                  # Matugen config and color templates
+│   └── .config/matugen/
+│       └── templates/        # Templates for fish, ghostty, hyprland, waybar, rofi, wofi, wlogout
+├── nvim/                     # Neovim config (uses sorbet colorscheme — opinionated)
+│   └── .config/nvim/
+├── rofi/                     # App launcher
+│   └── .config/rofi/
 ├── swaync/                   # Notification center
+│   └── .config/swaync/
+├── tmux/                     # tmux config
+│   └── .config/tmux/
 ├── waybar/                   # Status bar
-├── wlogout/
-│   ├── layout                # Logout menu layout
-│   └── style.css.example     # Copy and update with your wallpaper path
-├── wofi/                     # App launcher config
-└── packages.txt              # Full package list
+│   └── .config/waybar/
+├── wlogout/                  # Logout menu
+│   └── .config/wlogout/
+├── wofi/                     # Secondary launcher (matugen-integrated)
+│   └── .config/wofi/
+├── wallpapers/               # Wallpaper images — must live here for wallpicker to work
+├── applications.md           # Notes on fixing app launcher issues
+└── packages.txt              # Full package list (generated with pacman -Qe)
 ```
 
-## Setup
+## Setup (new machine)
 
 1. Install packages from `packages.txt`:
    ```bash
    sudo pacman -S --needed - < packages.txt
    ```
 
-2. Copy configs to their locations:
+2. Clone the repo to your home directory:
    ```bash
-   cp -r fish/* ~/.config/fish/
-   cp -r ghostty/* ~/.config/ghostty/
-   cp -r hypr/* ~/.config/hypr/
-   cp -r matugen/* ~/.config/matugen/
-   cp -r swaync/* ~/.config/swaync/
-   cp -r waybar/* ~/.config/waybar/
-   cp wlogout/layout ~/.config/wlogout/
-   cp -r wofi/* ~/.config/wofi/
-   cp bin/* ~/.local/bin/
-   chmod +x ~/.local/bin/wallpaper ~/.local/bin/wallpicker
+   git clone <repo-url> ~/dotfiles
+   cd ~/dotfiles
    ```
 
 3. Set up files that require local path customization (replace `/home/yourusername` with your actual path):
    ```bash
-   cp hypr/hyprpaper.conf.example ~/.config/hypr/hyprpaper.conf
-   cp hypr/hyprlock.conf.example ~/.config/hypr/hyprlock.conf
-   cp matugen/templates/wlogout-colors.css.example ~/.config/matugen/templates/wlogout-colors.css
-   cp wlogout/style.css.example ~/.config/wlogout/style.css
+   cp hypr/.config/hypr/hyprpaper.conf.example ~/.config/hypr/hyprpaper.conf
+   cp rofi/.config/rofi/launcher.rasi.example ~/.config/rofi/launcher.rasi
+   cp wlogout/.config/wlogout/style.css.example ~/.config/wlogout/style.css
    ```
    Then edit each file and replace `/home/yourusername` with your actual home path.
 
-4. Run matugen with your wallpaper of choice to generate all color configs:
+4. Stow all packages:
    ```bash
-   matugen image /path/to/wallpaper.jpg --mode dark -t scheme-tonal-spot
+   stow fish ghostty hypr matugen nvim rofi swaync tmux waybar wlogout wofi bin applications
    ```
+   Make the scripts executable:
+   ```bash
+   chmod +x ~/.local/bin/wallpaper ~/.local/bin/wallpicker
+   ```
+
+5. Run matugen with your wallpaper of choice to generate all color configs:
+   ```bash
+   matugen image ~/dotfiles/wallpapers/your-wallpaper.jpg --mode dark -t scheme-tonal-spot
+   ```
+   This generates colors for fish, ghostty, hyprland, hyprlock, waybar, rofi, wofi, and wlogout.
+
+> **Note:** Stow will refuse to create a symlink if a real file already exists at the target path.
+> Remove existing config directories before stowing, or use `stow --adopt` to pull existing files
+> into the repo first (then review with `git diff` before committing).
+
+## Migrating on an existing machine
+
+If you previously used `cp` to install these configs, remove the real files first so stow can replace them with symlinks:
+
+```bash
+rm -rf ~/.config/fish ~/.config/ghostty ~/.config/hypr ~/.config/matugen \
+       ~/.config/nvim ~/.config/rofi ~/.config/swaync ~/.config/tmux \
+       ~/.config/waybar ~/.config/wlogout ~/.config/wofi
+rm -f ~/.local/bin/wallpaper ~/.local/bin/wallpicker
+```
+
+Then run the stow command from step 4 above.
+
+## Adding a new package
+
+1. Create the package directory with the full path structure mirroring `$HOME`:
+   ```
+   dotfiles/newpackage/.config/newpackage/config-file
+   ```
+2. Run `stow newpackage` from `~/dotfiles`.
 
 ## Wallpaper Switching
 
-Super + W opens a yazi file picker pointed at `~/photos/wallpapers/`. Selecting an image switches the wallpaper and regenerates the color theme across all apps via matugen.
+`Super + W` opens a Yazi file picker pointed at `~/dotfiles/wallpapers/`. Selecting an image switches the wallpaper and regenerates the color theme across all apps via matugen. Wallpaper images must be kept in the `wallpapers/` directory for the script to work.
+
+## GTK Dark Mode
+
+GTK apps (e.g. pavucontrol) are set to dark mode via gsettings:
+```bash
+gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
+```
 
 ## Gitignored Files
 
@@ -83,12 +136,14 @@ These files exist locally but are not tracked — use the `.example` versions as
 
 | File | Reason |
 |------|--------|
-| `hypr/hyprpaper.conf` | Contains local wallpaper path |
-| `matugen/templates/wlogout-colors.css` | Contains local wallpaper path |
-| `wlogout/style.css` | Contains local wallpaper path |
-| `fish/fish_variables` | Contains local shell variables |
-| `fish/fish_history` | Shell history |
+| `hypr/.config/hypr/hyprpaper.conf` | Contains local wallpaper path |
+| `hypr/.config/hypr/hyprlock.conf` | Generated by matugen |
+| `rofi/.config/rofi/launcher.rasi` | Contains local path customization |
+| `matugen/.config/matugen/templates/wlogout-colors.css` | Contains local wallpaper path |
+| `wlogout/.config/wlogout/style.css` | Contains local wallpaper path |
+| `fish/.config/fish/fish_variables` | Contains local shell variables |
+| `fish/.config/fish/fish_history` | Shell history |
 
-- pavucontrol to dark mode:
-    - gsettings set org.gnome.desktop.interface color-scheme prefer-dark
-    - gsettings set org.gnome.desktop.interface gtk-theme 'Adwaita-dark'
+## Screenshots
+
+> TODO: Add screenshots of the desktop, waybar, rofi launcher, and wlogout screen.
