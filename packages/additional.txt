@@ -1,0 +1,17 @@
+[hypr]     hyprlauncher
+[dev]      neovim
+[dev]      go
+[dev]      python
+[dev]      nano-syntax-highlighting
+[browser]  brave-bin
+[browser]  firefox
+[comms]    discord
+[media]    spotify
+[media]    mpv
+[media]    obs-studio
+[creative] pureref
+[creative] meld
+[creative] blender
+[creative] gimp
+[creative] krita
+[gaming]   steam
