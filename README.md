@@ -52,22 +52,57 @@ dotfiles/
 │   └── .config/wlogout/
 ├── wofi/                     # Secondary launcher (matugen-integrated)
 │   └── .config/wofi/
-├── wallpapers/               # Wallpaper images — must live here for wallpicker to work
+├── wallpapers/               # Wallpaper images — seeded to ~/photos/wallpapers/ on install
+├── install.sh                # Install script entrypoint
+├── modules/                  # Install script phases (bootstrap, packages, stow, etc.)
+├── lib/                      # Shared helpers and gum styling
+├── packages/                 # Package lists (must-install, core, additional)
 ├── applications.md           # Notes on fixing app launcher issues
 └── packages.txt              # Full package list (generated with pacman -Qe)
 ```
 
-## Setup (new machine)
+## Fresh Install
+
+Run from the TTY on a base EndeavourOS install — no desktop environment needed.
+
+1. Do a minimal base install of EndeavourOS, reboot into TTY, and log in.
+
+2. Clone the repo and run the install script:
+   ```bash
+   git clone https://github.com/irispsyence/dotfiles.git ~/dotfiles
+   cd ~/dotfiles
+   ./install.sh
+   ```
+
+The script handles everything from there:
+- Installs `git`, `gum`, `stow`, and `paru` silently
+- Presents an interactive menu to choose install tier and select packages
+- Stows all configs, replaces hardcoded paths with your username, enables services
+- Runs matugen with the default wallpaper so everything is themed on first boot
+- Enables SDDM — reboot when done to land in Hyprland
+
+**Install tiers:**
+- `⚡ Opinionated` — full personal setup, no prompts
+- `🔧 Custom` — step-by-step interactive walkthrough
+- `📦 Minimal` — Hyprland + UI + fonts only
+- `👁 Dry Run` — preview all actions without installing anything
+
+## Manual Setup
+
+If you prefer to set things up by hand:
 
 1. Install packages from `packages.txt`:
    ```bash
    sudo pacman -S --needed - < packages.txt
    ```
 
-2. Clone the repo to your home directory:
+2. Stow all packages:
    ```bash
-   git clone <repo-url> ~/dotfiles
-   cd ~/dotfiles
+   stow fish ghostty hypr matugen nvim rofi swaync tmux waybar wlogout wofi bin applications
+   ```
+   Make the scripts executable:
+   ```bash
+   chmod +x ~/.local/bin/wallpaper ~/.local/bin/wallpicker
    ```
 
 3. Set up files that require local path customization (replace `/home/yourusername` with your actual path):
@@ -78,18 +113,9 @@ dotfiles/
    ```
    Then edit each file and replace `/home/yourusername` with your actual home path.
 
-4. Stow all packages:
+4. Run matugen with your wallpaper of choice to generate all color configs:
    ```bash
-   stow fish ghostty hypr matugen nvim rofi swaync tmux waybar wlogout wofi bin applications
-   ```
-   Make the scripts executable:
-   ```bash
-   chmod +x ~/.local/bin/wallpaper ~/.local/bin/wallpicker
-   ```
-
-5. Run matugen with your wallpaper of choice to generate all color configs:
-   ```bash
-   matugen image ~/dotfiles/wallpapers/your-wallpaper.jpg --mode dark -t scheme-tonal-spot
+   matugen image ~/photos/wallpapers/your-wallpaper.jpg --mode dark -t scheme-tonal-spot
    ```
    This generates colors for fish, ghostty, hyprland, hyprlock, waybar, rofi, wofi, and wlogout.
 
