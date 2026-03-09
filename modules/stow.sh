@@ -37,7 +37,7 @@ resolve_stow_dirs() {
     for pkg in "${packages[@]}"; do
         local dir="${PACKAGE_TO_STOW[$pkg]:-$pkg}"
         # Only add if the stow dir actually exists
-        if [[ -d "$DOTFILES_DIR/$dir" ]] && [[ -z "${seen[$dir]}" ]]; then
+        if [[ -d "$DOTFILES_DIR/$dir" ]] && [[ -z "${seen[$dir]:-}" ]]; then
             STOW_DIRS+=("$dir")
             seen[$dir]=1
         fi
@@ -45,7 +45,7 @@ resolve_stow_dirs() {
 
     # Always add base packages
     for dir in "${ALWAYS_STOW[@]}"; do
-        if [[ -d "$DOTFILES_DIR/$dir" ]] && [[ -z "${seen[$dir]}" ]]; then
+        if [[ -d "$DOTFILES_DIR/$dir" ]] && [[ -z "${seen[$dir]:-}" ]]; then
             STOW_DIRS+=("$dir")
             seen[$dir]=1
         fi

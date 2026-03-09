@@ -8,6 +8,55 @@ DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 export DOTFILES_DIR
 
 source "$DOTFILES_DIR/lib/helpers.sh"
+
+# ── TTY detection ─────────────────────────────────────────────────────────────
+# gum requires a proper terminal — if we're in a raw TTY, bootstrap silently
+# then instruct the user to launch Hyprland and re-run from kitty
+is_tty() {
+    [[ -z "${DISPLAY:-}" ]] && [[ -z "${WAYLAND_DISPLAY:-}" ]]
+}
+
+if is_tty; then
+    echo "Detected TTY — running silent bootstrap..."
+    echo ""
+
+    # Install prerequisites silently
+    for pkg in git gum stow; do
+        if ! is_installed "$pkg"; then
+            echo "  Installing $pkg..."
+            sudo pacman -S --noconfirm --needed "$pkg"
+        fi
+    done
+
+    # Install paru if missing
+    if ! command_exists paru; then
+        echo "  Installing paru..."
+        sudo pacman -S --noconfirm --needed base-devel
+        tmp="$(mktemp -d)"
+        git clone https://aur.archlinux.org/paru.git "$tmp/paru"
+        (cd "$tmp/paru" && makepkg -si --noconfirm)
+        rm -rf "$tmp"
+    fi
+
+    # Install kitty and hyprland so we have a terminal and compositor
+    for pkg in kitty hyprland; do
+        if ! is_installed "$pkg"; then
+            echo "  Installing $pkg..."
+            sudo pacman -S --noconfirm --needed "$pkg"
+        fi
+    done
+
+    echo ""
+    echo "Bootstrap complete."
+    echo ""
+    echo "Next steps:"
+    echo "  1. Run: Hyprland"
+    echo "  2. Open kitty (Super + Return or kitty in the Hyprland session)"
+    echo "  3. Run: cd ~/dotfiles && ./install.sh"
+    echo ""
+    exit 0
+fi
+
 source "$DOTFILES_DIR/lib/gum-styles.sh"
 source "$DOTFILES_DIR/modules/bootstrap.sh"
 source "$DOTFILES_DIR/modules/packages.sh"
