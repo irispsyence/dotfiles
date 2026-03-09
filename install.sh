@@ -211,9 +211,11 @@ phase_opinionated() {
     mapfile -t SELECTED_CORE_PACKAGES < <(
         grep -v '^\[font\]' "$DOTFILES_DIR/packages/core.txt" | awk '{print $NF}'
     )
-    SELECTED_ADDITIONAL_PACKAGES=()
+    mapfile -t SELECTED_ADDITIONAL_PACKAGES < <(
+        awk '{print $NF}' "$DOTFILES_DIR/packages/additional.txt"
+    )
     PATH_REPLACEMENT_SKIPPED=false
-    ALL_SELECTED_PACKAGES=("${SELECTED_CORE_PACKAGES[@]}")
+    ALL_SELECTED_PACKAGES=("${SELECTED_CORE_PACKAGES[@]}" "${SELECTED_ADDITIONAL_PACKAGES[@]}")
     export TERMINAL_CHOICE PATH_REPLACEMENT_SKIPPED ALL_SELECTED_PACKAGES
 }
 
