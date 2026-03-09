@@ -311,10 +311,7 @@ phase_execute() {
         run_services
     "
 
-    # 3j. Shell
-    run_shell
-
-    # Run matugen with default wallpaper
+    # 3j. Matugen — run before shell change so theme is set regardless
     local default_wall="$HOME/photos/wallpapers/1-osaka-jade-bg.jpg"
     if [[ -f "$default_wall" ]] && command_exists matugen; then
         gum_spin --title "Generating color theme..." -- \
@@ -323,6 +320,9 @@ phase_execute() {
     else
         log_warn "Matugen skipped — wallpaper or matugen not found"
     fi
+
+    # 3k. Shell — last step, interactive password prompt
+    run_shell || true
 }
 
 # ── Phase 4 — Summary ─────────────────────────────────────────────────────────

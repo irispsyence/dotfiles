@@ -27,13 +27,16 @@ run_shell() {
         log_info "Added $fish_path to /etc/shells"
     fi
 
-    if chsh -s "$fish_path"; then
-        log_success "Default shell changed to fish"
-        SHELL_CHANGED=true
+    if chsh -s "$fish_path" || true; then
+        if [[ "$SHELL" != "$fish_path" ]]; then
+            log_success "Default shell changed to fish"
+            SHELL_CHANGED=true
+        fi
     else
         log_error "Failed to change shell to fish"
         SHELL_CHANGED=false
     fi
 
     export SHELL_CHANGED
+    return 0
 }
