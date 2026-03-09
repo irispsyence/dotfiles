@@ -70,6 +70,14 @@ bootstrap_paru() {
 
     rm -rf "$tmp_dir"
     log_info "paru installed"
+
+    # Configure paru to skip PKGBUILD review — prevents interactive hangs
+    mkdir -p "$HOME/.config/paru"
+    cat > "$HOME/.config/paru/paru.conf" <<'EOF'
+[options]
+SkipReview
+EOF
+    log_info "paru configured with SkipReview"
 }
 
 # ── 0d. Tailscale (optional) ──────────────────────────────────────────────────
