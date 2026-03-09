@@ -2,7 +2,8 @@
 # Hyprland dotfiles install script
 # https://github.com/irispsyence/dotfiles
 
-set -euo pipefail
+# Note: intentionally no set -e — install steps log failures and continue
+set -uo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 export DOTFILES_DIR
@@ -265,8 +266,7 @@ phase_execute() {
 
     # 3a. System update
     gum_spin --title "Updating system..." -- \
-        paru -Syu --noconfirm >> "$LOG_FILE" 2>&1
-    log_info "System updated"
+        paru -Syu --noconfirm >> "$LOG_FILE" 2>&1 || log_warn "System update had warnings"
 
     # 3b. Packages
     print_header "Installing packages..."
@@ -274,15 +274,14 @@ phase_execute() {
     install_packages "${ALL_SELECTED_PACKAGES[@]}"
 
     # 3c. Terminal
-    stow_terminal "$TERMINAL_CHOICE"
+    stow_terminal "$TERMINAL_CHOICE" || true
 
     # 3d/3e. Stow
-    gum_spin --title "Deploying configs..." -- sleep 0.5
-    run_full_stow "$TERMINAL_CHOICE" "${ALL_SELECTED_PACKAGES[@]}"
+    run_full_stow "$TERMINAL_CHOICE" "${ALL_SELECTED_PACKAGES[@]}" || true
 
     # 3f. Font cache
-    gum_spin --title "Rebuilding font cache..." -- fc-cache -fv >> "$LOG_FILE" 2>&1
-    log_info "Font cache rebuilt"
+    gum_spin --title "Rebuilding font cache..." -- \
+        fc-cache -fv >> "$LOG_FILE" 2>&1 || true
 
     # 3g. Wallpaper bootstrap
     if [[ ! -d "$HOME/photos/wallpapers" ]]; then
@@ -292,7 +291,7 @@ phase_execute() {
     fi
 
     # 3h. Path replacement
-    bootstrap_example_configs
+    bootstrap_example_configs || true
     if [[ "$PATH_REPLACEMENT_SKIPPED" != true ]]; then
         gum_spin --title "Replacing hardcoded paths..." -- \
             bash -c "
@@ -301,7 +300,7 @@ phase_execute() {
                 source '$DOTFILES_DIR/lib/helpers.sh'
                 source '$DOTFILES_DIR/modules/paths.sh'
                 replace_paths false
-            "
+            " || log_warn "Path replacement had errors — check $LOG_FILE"
     fi
 
     # 3i. Services
@@ -309,13 +308,14 @@ phase_execute() {
         source '$DOTFILES_DIR/lib/helpers.sh'
         source '$DOTFILES_DIR/modules/services.sh'
         run_services
-    "
+    " || log_warn "Service setup had errors — check $LOG_FILE"
 
     # 3j. Matugen — run before shell change so theme is set regardless
     local default_wall="$HOME/photos/wallpapers/1-osaka-jade-bg.jpg"
     if [[ -f "$default_wall" ]] && command_exists matugen; then
         gum_spin --title "Generating color theme..." -- \
-            matugen image "$default_wall" --mode dark -t scheme-tonal-spot >> "$LOG_FILE" 2>&1
+            matugen image "$default_wall" --mode dark -t scheme-tonal-spot \
+            >> "$LOG_FILE" 2>&1 || log_warn "Matugen had errors — check $LOG_FILE"
         log_info "Matugen ran with default wallpaper"
     else
         log_warn "Matugen skipped — wallpaper or matugen not found"
