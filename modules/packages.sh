@@ -79,15 +79,13 @@ install_packages() {
     done
 
     for pkg in "${pacman_pkgs[@]}"; do
-        local result
-        result=$(pkg_install "$pkg")
-        PKG_RESULTS+=("$pkg:$result")
+        pkg_install "$pkg"
+        PKG_RESULTS+=("$pkg:$PKG_LAST_RESULT")
     done
 
     for pkg in "${aur_pkgs[@]}"; do
-        local result
-        result=$(pkg_install "$pkg")
-        PKG_RESULTS+=("$pkg:$result")
+        pkg_install "$pkg"
+        PKG_RESULTS+=("$pkg:$PKG_LAST_RESULT")
     done
 
     export PKG_RESULTS

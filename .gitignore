@@ -5,7 +5,6 @@ fish/.config/fish/fish_variables
 fish/.config/fish/conf.d/secrets.fish
 rofi/.config/rofi/launcher.rasi
 wlogout/.config/wlogout/style.css
-matugen/.config/matugen/templates/wlogout-colors.css
 *secrets*
 *password*
 *.key

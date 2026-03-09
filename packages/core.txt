@@ -45,5 +45,6 @@
 [tools]   unrar
 [tools]   stow
 [tools]   matugen
+[tools]   bluetui
 [tools]   downgrade
 [tools]   power-profiles-daemon

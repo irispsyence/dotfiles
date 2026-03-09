@@ -11,6 +11,7 @@ AUR_PACKAGES=(
     pureref
     wlogout
     hyprlauncher
+    bluetui
 )
 
 # ── Logging ───────────────────────────────────────────────────────────────────
@@ -46,24 +47,28 @@ is_aur() {
 }
 
 # ── Package installer ─────────────────────────────────────────────────────────
-# Tries pacman first; falls back to paru if pacman -Si fails (not in any repo)
+# Sets PKG_LAST_RESULT to "installed", "already_installed", or "failed"
+# Does NOT use command substitution so paru has full TTY access for sudo
+PKG_LAST_RESULT=""
+
 pkg_install() {
     local pkg="$1"
+    PKG_LAST_RESULT="failed"
 
     if is_installed "$pkg"; then
         log_info "SKIP $pkg (already installed)"
-        echo "already_installed"
+        PKG_LAST_RESULT="already_installed"
         return 0
     fi
 
     if is_aur "$pkg"; then
         log_info "AUR $pkg — installing via paru"
-        if paru -S --noconfirm --needed --skipreview "$pkg" >> "$LOG_FILE" 2>&1; then
+        if paru -S --noconfirm --needed --skipreview "$pkg" 2>>"$LOG_FILE"; then
             log_success "INSTALLED (AUR) $pkg"
-            echo "installed"
+            PKG_LAST_RESULT="installed"
         else
             log_error "FAILED (AUR) $pkg"
-            echo "failed"
+            PKG_LAST_RESULT="failed"
         fi
         return
     fi
@@ -72,20 +77,20 @@ pkg_install() {
         log_info "REPO $pkg — installing via pacman"
         if sudo pacman -S --noconfirm --needed "$pkg" >> "$LOG_FILE" 2>&1; then
             log_success "INSTALLED $pkg"
-            echo "installed"
+            PKG_LAST_RESULT="installed"
         else
             log_error "FAILED $pkg"
-            echo "failed"
+            PKG_LAST_RESULT="failed"
         fi
     else
         # Not in any known repo — try paru as fallback
         log_warn "AUR FALLBACK $pkg — not found in repos, trying paru"
-        if paru -S --noconfirm --needed --skipreview "$pkg" >> "$LOG_FILE" 2>&1; then
+        if paru -S --noconfirm --needed --skipreview "$pkg" 2>>"$LOG_FILE"; then
             log_success "INSTALLED (AUR fallback) $pkg"
-            echo "installed"
+            PKG_LAST_RESULT="installed"
         else
             log_error "FAILED (AUR fallback) $pkg"
-            echo "failed"
+            PKG_LAST_RESULT="failed"
         fi
     fi
 }
