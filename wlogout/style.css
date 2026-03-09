@@ -1,0 +1,32 @@
+* {
+    background-image: none;
+    font-family: JetBrainsMono Nerd Font;
+    font-size: 14px;
+}
+
+window {
+    background-image: image(url("$HOME/photos/wallpapers/1-osaka-jade-bg.jpg"));
+    background-size: cover;
+    background-position: center;
+}
+
+button {
+    background-color: #0f1512;
+    border: 2px solid #88d6ba;
+    border-radius: 12px;
+    color: #88d6ba;
+    margin: 8px;
+    padding: 32px 16px;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+button:hover {
+    background-color: #88d6ba;
+    color: #0f1512;
+    border-color: #88d6ba;
+}
+
+button:focus {
+    background-color: #88d6ba;
+    color: #0f1512;
+}

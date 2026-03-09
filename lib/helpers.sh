@@ -60,8 +60,8 @@ pkg_install() {
     fi
 
     if is_aur "$pkg"; then
-        log_info "AUR $pkg — installing via paru"
-        if PAGER=cat paru -S --noconfirm --needed --skipreview "$pkg"; then
+        log_info "AUR $pkg — installing via yay"
+        if yay -S --noconfirm --needed "$pkg"; then
             log_success "INSTALLED (AUR) $pkg"
             PKG_LAST_RESULT="installed"
         else
@@ -81,9 +81,9 @@ pkg_install() {
             PKG_LAST_RESULT="failed"
         fi
     else
-        # Not in any known repo — try paru as fallback
-        log_warn "AUR FALLBACK $pkg — not found in repos, trying paru"
-        if PAGER=cat paru -S --noconfirm --needed --skipreview "$pkg"; then
+        # Not in any known repo — try yay as fallback
+        log_warn "AUR FALLBACK $pkg — not found in repos, trying yay"
+        if yay -S --noconfirm --needed "$pkg"; then
             log_success "INSTALLED (AUR fallback) $pkg"
             PKG_LAST_RESULT="installed"
         else

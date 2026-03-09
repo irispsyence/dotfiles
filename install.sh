@@ -29,13 +29,13 @@ if is_tty; then
         fi
     done
 
-    # Install paru if missing
-    if ! command_exists paru; then
-        echo "  Installing paru..."
+    # Install yay if missing
+    if ! command_exists yay; then
+        echo "  Installing yay..."
         sudo pacman -S --noconfirm --needed base-devel
         tmp="$(mktemp -d)"
-        git clone https://aur.archlinux.org/paru.git "$tmp/paru"
-        (cd "$tmp/paru" && makepkg -si --noconfirm)
+        git clone https://aur.archlinux.org/yay.git "$tmp/yay"
+        (cd "$tmp/yay" && makepkg -si --noconfirm)
         rm -rf "$tmp"
     fi
 
@@ -268,7 +268,7 @@ phase_execute() {
 
     # 3a. System update
     gum_spin --title "Updating system..." -- \
-        paru -Syu --noconfirm >> "$LOG_FILE" 2>&1 || log_warn "System update had warnings"
+        yay -Syu --noconfirm >> "$LOG_FILE" 2>&1 || log_warn "System update had warnings"
 
     # 3b. Packages
     print_header "Installing packages..."

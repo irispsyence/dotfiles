@@ -45,24 +45,14 @@ bootstrap_prerequisites() {
     log_info "Prerequisites ready"
 }
 
-# ── 0c. Paru ──────────────────────────────────────────────────────────────────
-bootstrap_paru() {
-    # Always ensure paru.conf exists with SkipReview regardless of install state
-    mkdir -p "$HOME/.config/paru"
-    if [[ ! -f "$HOME/.config/paru/paru.conf" ]]; then
-        cat > "$HOME/.config/paru/paru.conf" <<'EOF'
-[options]
-SkipReview
-EOF
-        log_info "paru.conf created"
-    fi
-
-    if command_exists paru; then
-        log_info "paru already installed — skipping"
+# ── 0c. Yay ───────────────────────────────────────────────────────────────────
+bootstrap_yay() {
+    if command_exists yay; then
+        log_info "yay already installed — skipping"
         return 0
     fi
 
-    echo "Installing paru (AUR helper)..."
+    echo "Installing yay (AUR helper)..."
 
     if ! is_installed base-devel; then
         sudo pacman -S --noconfirm --needed base-devel >> "$LOG_FILE" 2>&1
@@ -70,24 +60,16 @@ EOF
 
     local tmp_dir
     tmp_dir="$(mktemp -d)"
-    git clone https://aur.archlinux.org/paru.git "$tmp_dir/paru" >> "$LOG_FILE" 2>&1
+    git clone https://aur.archlinux.org/yay.git "$tmp_dir/yay" >> "$LOG_FILE" 2>&1
 
-    if ! (cd "$tmp_dir/paru" && makepkg -si --noconfirm >> "$LOG_FILE" 2>&1); then
-        echo "ERROR: Failed to build paru. Check $LOG_FILE for details." >&2
+    if ! (cd "$tmp_dir/yay" && makepkg -si --noconfirm >> "$LOG_FILE" 2>&1); then
+        echo "ERROR: Failed to build yay. Check $LOG_FILE for details." >&2
         rm -rf "$tmp_dir"
         exit 1
     fi
 
     rm -rf "$tmp_dir"
-    log_info "paru installed"
-
-    # Configure paru to skip PKGBUILD review — prevents interactive hangs
-    mkdir -p "$HOME/.config/paru"
-    cat > "$HOME/.config/paru/paru.conf" <<'EOF'
-[options]
-SkipReview
-EOF
-    log_info "paru configured with SkipReview"
+    log_info "yay installed"
 }
 
 # ── 0d. Tailscale (optional) ──────────────────────────────────────────────────
@@ -217,7 +199,7 @@ bootstrap_must_install() {
 run_bootstrap() {
     bootstrap_preflight
     bootstrap_prerequisites
-    bootstrap_paru
+    bootstrap_yay
     bootstrap_tailscale
     bootstrap_repo
     bootstrap_must_install
