@@ -47,6 +47,16 @@ bootstrap_prerequisites() {
 
 # ── 0c. Paru ──────────────────────────────────────────────────────────────────
 bootstrap_paru() {
+    # Always ensure paru.conf exists with SkipReview regardless of install state
+    mkdir -p "$HOME/.config/paru"
+    if [[ ! -f "$HOME/.config/paru/paru.conf" ]]; then
+        cat > "$HOME/.config/paru/paru.conf" <<'EOF'
+[options]
+SkipReview
+EOF
+        log_info "paru.conf created"
+    fi
+
     if command_exists paru; then
         log_info "paru already installed — skipping"
         return 0
