@@ -55,6 +55,8 @@ resolve_stow_dirs() {
 }
 
 # ── Pre-flight: back up conflicts ─────────────────────────────────────────────
+# Walks each stow package directory and backs up any real files (not symlinks)
+# that already exist at the target path — avoids parsing stow's output entirely
 stow_preflight() {
     local dirs=("$@")
     BACKED_UP_FILES=()
@@ -62,19 +64,22 @@ stow_preflight() {
     timestamp="$(date '+%Y%m%d%H%M%S')"
 
     for dir in "${dirs[@]}"; do
-        # Simulate stow to find conflicts
-        while IFS= read -r conflict; do
-            [[ -z "$conflict" ]] && continue
-            local bak="${conflict}.bak.${timestamp}"
-            mv "$conflict" "$bak"
-            BACKED_UP_FILES+=("$bak")
-            log_warn "Backed up: $conflict → $bak"
-        done < <(
-            stow --no-folding -n -d "$DOTFILES_DIR" -t "$HOME" "$dir" 2>&1 \
-            | grep "existing target" \
-            | sed "s/.*existing target is not owned by stow: //" \
-            | sed "s|^|$HOME/|"
-        )
+        local pkg_dir="$DOTFILES_DIR/$dir"
+        [[ -d "$pkg_dir" ]] || continue
+
+        while IFS= read -r src; do
+            # Compute where this file would land in $HOME
+            local rel="${src#$pkg_dir/}"
+            local target="$HOME/$rel"
+
+            # Back up only if a real file (not a symlink) exists at the target
+            if [[ -e "$target" && ! -L "$target" ]]; then
+                local bak="${target}.bak.${timestamp}"
+                mv "$target" "$bak"
+                BACKED_UP_FILES+=("$bak")
+                log_warn "Backed up: $target → $bak"
+            fi
+        done < <(find "$pkg_dir" -type f)
     done
 
     export BACKED_UP_FILES
