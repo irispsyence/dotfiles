@@ -23,7 +23,6 @@ output_path = "~/.config/fish/colors.fish"
 [templates.swaync]
 input_path = "~/.config/matugen/templates/swaync-colors.css"
 output_path = "~/.config/swaync/colors.css"
-post_hook = "bash ~/.config/matugen/reload.sh"
 
 [templates.rofi]
 input_path  = "~/.config/matugen/templates/rofi-colors.rasi"
@@ -45,5 +44,6 @@ output_path = "~/.config/yazi/theme.toml"
 [templates.wlogout]
 input_path = "~/.config/matugen/templates/wlogout-colors.css"
 output_path = "~/.config/wlogout/style.css"
+post_hook = "bash ~/.config/matugen/reload.sh"
 
 
