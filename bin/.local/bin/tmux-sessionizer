@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+PROJECTS_DIR="$HOME/workspace/projects"
+
+if [[ $# -eq 1 ]]; then
+    selected="$1"
+else
+    selected=$( { find "$PROJECTS_DIR" -mindepth 1 -maxdepth 1 -type d; echo "$HOME/dotfiles"; } \
+        | sort \
+        | fzf --prompt="  project: " \
+              --height=40% \
+              --border=rounded \
+              --color=dark \
+              --preview="ls -1 {}" \
+              --preview-window=right:40%:wrap)
+fi
+
+[[ -z "$selected" ]] && exit 0
+
+session_name=$(basename "$selected" | tr ' .:' '_')
+
+if tmux has-session -t "$session_name" 2>/dev/null; then
+    if [[ -n "$TMUX" ]]; then
+        tmux switch-client -t "$session_name"
+    else
+        tmux attach-session -t "$session_name"
+    fi
+    exit 0
+fi
+
+tmux new-session -ds "$session_name" -c "$selected"
+tmux rename-window -t "$session_name:1" "workspace"
+
+# Split 60/40 first
+tmux split-window -h -t "$session_name:1.1" -l "40%" -c "$selected"
+
+# Carve yazi out of the left pane
+tmux split-window -hb -t "$session_name:1.1" -l "30%" -c "$selected"
+tmux send-keys -t "$session_name:1.1" "yazi" Enter
+
+tmux select-pane -t "$session_name:1.2"
+
+if [[ -n "$TMUX" ]]; then
+    tmux switch-client -t "$session_name"
+else
+    tmux attach-session -t "$session_name"
+fi

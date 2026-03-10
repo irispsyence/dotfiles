@@ -1,0 +1,4 @@
+[opener]
+tmux-edit = [
+  { run = 'tmux send-keys -t .2 "nvim %s" Enter', desc = "Open in nvim (tmux center pane)" },
+]
