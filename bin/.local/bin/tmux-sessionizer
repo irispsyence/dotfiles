@@ -4,14 +4,21 @@ PROJECTS_DIR="$HOME/workspace/projects"
 if [[ $# -eq 1 ]]; then
     selected="$1"
 else
-    selected=$( { find "$PROJECTS_DIR" -mindepth 1 -maxdepth 1 -type d; echo "$HOME/dotfiles"; } \
+    selected=$( { find "$PROJECTS_DIR" -mindepth 1 -maxdepth 1 -type d; echo "$HOME/dotfiles"; echo "[+ new project]"; } \
         | sort \
         | fzf --prompt="  project: " \
               --height=40% \
               --border=rounded \
               --color=dark \
-              --preview="ls -1 {}" \
+              --preview="[[ {} == '[+ new project]' ]] && echo 'Create a new project in ~/workspace/projects/' || ls -1 {}" \
               --preview-window=right:40%:wrap)
+
+    if [[ "$selected" == "[+ new project]" ]]; then
+        read -rp "  new project name: " project_name
+        [[ -z "$project_name" ]] && exit 0
+        selected="$PROJECTS_DIR/$project_name"
+        mkdir -p "$selected"
+    fi
 fi
 
 [[ -z "$selected" ]] && exit 0
