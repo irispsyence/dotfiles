@@ -16,7 +16,7 @@ echo "file check passed" >> /tmp/wallpaper-debug.log
 
 # Update hyprpaper.conf for persistence across restarts
 sed -i "s|preload = .*|preload = $WALLPAPER|" ~/.config/hypr/hyprpaper.conf
-sed -i "s|    path = .*|    path = $WALLPAPER|" ~/.config/hypr/hyprpaper.conf
+sed -i "s|wallpaper = \(.*\),.*|wallpaper = \1,$WALLPAPER|" ~/.config/hypr/hyprpaper.conf
 
 # Apply live via hyprpaper IPC — no restart needed
 hyprctl hyprpaper preload "$WALLPAPER"
