@@ -14,14 +14,14 @@ if [ ! -f "$WALLPAPER" ]; then
 fi
 echo "file check passed" >> /tmp/wallpaper-debug.log
 
-# Update hyprpaper.conf and switch wallpaper immediately
+# Update hyprpaper.conf for persistence across restarts
 sed -i "s|preload = .*|preload = $WALLPAPER|" ~/.config/hypr/hyprpaper.conf
 sed -i "s|    path = .*|    path = $WALLPAPER|" ~/.config/hypr/hyprpaper.conf
-sed -i "s|^    path = .*|    path = $WALLPAPER|" ~/.config/hypr/hyprlock.conf
-pkill hyprpaper
-WAYLAND_DISPLAY=wayland-1 XDG_RUNTIME_DIR=/run/user/1000 hyprpaper --config ~/.config/hypr/hyprpaper.conf &
-disown
-echo "hyprpaper launched" >> /tmp/wallpaper-debug.log
+
+# Apply live via hyprpaper IPC — no restart needed
+hyprctl hyprpaper preload "$WALLPAPER"
+hyprctl hyprpaper wallpaper ",$WALLPAPER"
+echo "hyprpaper wallpaper set via IPC" >> /tmp/wallpaper-debug.log
 
 # Run matugen then let reload.sh handle everything else
 {

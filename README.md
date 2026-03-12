@@ -72,9 +72,10 @@ The install script runs in two phases — a silent TTY bootstrap first, then the
 
 **Step 1 — TTY bootstrap**
 
-Do a minimal base install of EndeavourOS, reboot into TTY, and log in. Then:
+Do a minimal base install of EndeavourOS, reboot into TTY, and log in. EndeavourOS does not include `git` by default, so install it first:
 
 ```bash
+sudo pacman -S --noconfirm git
 git clone https://github.com/irispsyence/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 ./install.sh
