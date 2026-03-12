@@ -14,6 +14,7 @@ declare -A PACKAGE_TO_STOW=(
     [hyprsunset]="hypr"
     [hyprshot]="hypr"
     [hyprtoolkit]="hypr"
+    [aylurs-gtk-shell-git]="ags"
     [waybar]="waybar"
     [rofi]="rofi"
     [wlogout]="wlogout"

@@ -19,3 +19,9 @@ fi
 pkill waybar
 waybar &
 
+# Restart ags calendar if config exists
+if [ -d ~/.config/ags ]; then
+    ags quit 2>/dev/null || true
+    ags run -d ~/.config/ags &
+fi
+

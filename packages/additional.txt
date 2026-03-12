@@ -1,7 +1,10 @@
 [hypr]     hyprlauncher
+[hypr]     aylurs-gtk-shell-git
 [dev]      neovim
 [dev]      go
 [dev]      python
+[dev]      nodejs
+[dev]      typescript
 [dev]      nano-syntax-highlighting
 [browser]  brave-bin
 [browser]  firefox

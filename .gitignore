@@ -10,3 +10,4 @@ wlogout/.config/wlogout/style.css
 *.key
 *.pem
 .env
+node_modules/

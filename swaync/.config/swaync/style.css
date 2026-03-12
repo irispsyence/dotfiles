@@ -1,7 +1,7 @@
 @import "colors.css"; 
 font-family: JetBrainsMono Nerd Font;
 notificationwindow, blankwindow {
-  background: rgba(0, 0, 0, 0.95);
+  background: @noti-bg;
 }
 
 .close-button {
@@ -45,7 +45,7 @@ notificationwindow, blankwindow {
   border: 12px solid var(--border);
   padding: 0;
   transition: var(--hover-tranistion);
-  background: rgba(var(--noti-bg));
+  background: @noti-bg;
 }
 
 .notification-row .notification-background .notification.low {
@@ -166,7 +166,7 @@ notificationwindow, blankwindow {
 
 .notification-row .notification-background .notification .notification-default-action .notification-content .inline-reply .inline-reply-button {
   margin-left: 4px;
-  background: rgba(var(--noti-bg), var(--noti-bg-alpha));
+  background: @noti-bg;
   border: var(--border);
   border-radius: var(--border-radius);
   color: var(--text-color);
@@ -258,7 +258,7 @@ notificationwindow, blankwindow {
 }
 
 .notification-group.collapsed .notification-row .notification {
-  background-color: rgba(var(--noti-bg), 1);
+  background-color: @noti-bg;
 }
 
 .notification-group.collapsed .notification-row:not(:last-child) {

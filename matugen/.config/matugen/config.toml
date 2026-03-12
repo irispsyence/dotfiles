@@ -41,6 +41,10 @@ output_path = "~/.config/tmux/colors.conf"
 input_path  = "~/.config/matugen/templates/yazi-theme.toml"
 output_path = "~/.config/yazi/theme.toml"
 
+[templates.ags]
+input_path = "~/.config/matugen/templates/ags-colors.css"
+output_path = "~/.config/ags/colors.css"
+
 [templates.wlogout]
 input_path = "~/.config/matugen/templates/wlogout-colors.css"
 output_path = "~/.config/wlogout/style.css"

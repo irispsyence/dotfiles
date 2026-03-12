@@ -1,0 +1,93 @@
+@import "../colors.css";
+
+/* ── Window ── */
+window {
+  background: transparent;
+}
+
+.calendar {
+  background-color: @surface;
+  border: 1px solid @on_primary;
+  border-radius: 12px;
+  padding: 16px;
+  min-width: 280px;
+}
+
+/* ── Header ── */
+.calendar-header {
+  margin-bottom: 4px;
+}
+
+.calendar-nav {
+  background-color: @surface_variant;
+  color: @on_surface;
+  border: none;
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-size: 16px;
+  min-width: 28px;
+}
+
+.calendar-nav:hover {
+  background-color: @primary;
+  color: @on_primary;
+}
+
+/* ── Dropdowns ── */
+dropdown {
+  background-color: @surface_variant;
+  color: @on_surface;
+  border: none;
+  border-radius: 6px;
+}
+
+dropdown button {
+  background-color: @surface_variant;
+  color: @on_surface;
+  border: none;
+  border-radius: 6px;
+  padding: 2px 6px;
+}
+
+dropdown button:hover {
+  background-color: @primary;
+  color: @on_primary;
+}
+
+/* ── Day labels ── */
+.calendar-day-labels {
+  margin-bottom: 2px;
+}
+
+.calendar-day-label {
+  color: alpha(@on_surface, 0.5);
+  font-size: 11px;
+  font-weight: bold;
+}
+
+/* ── Grid cells ── */
+.calendar-cell {
+  font-size: 13px;
+  border-radius: 6px;
+  min-width: 32px;
+  min-height: 28px;
+  padding: 2px 4px;
+}
+
+.calendar-cell label {
+  color: @on_surface;
+}
+
+.calendar-cell-empty label {
+  color: transparent;
+}
+
+.calendar-cell-today {
+  background-color: @on_primary;
+  border-radius: 6px;
+}
+
+.calendar-cell-today-label {
+  color: @primary;
+  font-weight: bold;
+}
