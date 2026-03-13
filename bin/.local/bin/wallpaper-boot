@@ -1,0 +1,11 @@
+#!/bin/bash
+# Applies the wallpaper stored in hyprpaper.conf via IPC on boot.
+# Hyprpaper's conf-based wallpaper setting is unreliable at startup,
+# so we start hyprpaper first then apply via hyprctl.
+
+WALLPAPER=$(awk '/^preload/{print $3; exit}' ~/.config/hypr/hyprpaper.conf)
+
+[ -f "$WALLPAPER" ] || exit 1
+
+hyprctl hyprpaper preload "$WALLPAPER"
+hyprctl hyprpaper wallpaper ",$WALLPAPER"
