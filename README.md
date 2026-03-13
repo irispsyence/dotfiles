@@ -124,7 +124,7 @@ If you prefer to set things up by hand:
    ```
    Make the scripts executable:
    ```bash
-   chmod +x ~/.local/bin/wallpaper ~/.local/bin/wallpicker ~/.local/bin/wallpaper-boot ~/.local/bin/tmux-sessionizer
+   chmod +x ~/.local/bin/wallpaper ~/.local/bin/wallpicker ~/.local/bin/tmux-sessionizer
    ```
 
 3. Set up files that require local path customization (replace `/home/yourusername` with your actual path):
@@ -153,7 +153,7 @@ If you previously used `cp` to install these configs, remove the real files firs
 rm -rf ~/.config/ags ~/.config/fish ~/.config/ghostty ~/.config/hypr ~/.config/matugen \
        ~/.config/nvim ~/.config/rofi ~/.config/swaync ~/.config/tmux \
        ~/.config/waybar ~/.config/wlogout ~/.config/wofi ~/.config/yazi
-rm -f ~/.local/bin/wallpaper ~/.local/bin/wallpicker ~/.local/bin/wallpaper-boot ~/.local/bin/tmux-sessionizer
+rm -f ~/.local/bin/wallpaper ~/.local/bin/wallpicker ~/.local/bin/tmux-sessionizer
 ```
 
 Then run the stow command from step 4 above.

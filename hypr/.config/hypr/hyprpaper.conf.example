@@ -1,3 +1,7 @@
 preload = /home/yourusername/photos/wallpapers/1-osaka-jade-bg.jpg
 
-wallpaper = eDP-1,/home/yourusername/photos/wallpapers/1-osaka-jade-bg.jpg
+wallpaper {
+    monitor = eDP-1
+    path = /home/yourusername/photos/wallpapers/1-osaka-jade-bg.jpg
+    fit_mode = cover
+}
