@@ -8,14 +8,15 @@ export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/run/user/1000}
 # Reload hyprland colors
 hyprctl reload 2>/dev/null || true
 
-# Reload swaync
-swaync-client --reload-config
+# Restart swaync
+pkill swaync 2>/dev/null || true
 sleep 0.2
-swaync-client -rs
+swaync &
 
-# Reload tmux only if a session exists
+# Reload tmux colors and repaint status bar if a session exists
 if tmux list-sessions &>/dev/null; then
-    tmux source-file ~/.config/tmux/tmux.conf 2>/dev/null || true
+    tmux source-file ~/.config/tmux/colors.conf 2>/dev/null || true
+    tmux refresh-client -S 2>/dev/null || true
 fi
 
 # Restart waybar

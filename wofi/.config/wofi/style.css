@@ -1,13 +1,13 @@
 window {
-    background-color: #19120c;
-    border: 1px solid #51443a;
+    background-color: #181115;
+    border: 1px solid #504349;
     border-radius: 8px;
 }
 
 #input {
-    background-color: #19120c;
-    color: #efe0d5;
-    border: 1px solid #51443a;
+    background-color: #181115;
+    color: #eddfe3;
+    border: 1px solid #504349;
     border-radius: 4px;
     padding: 4px 8px;
 }
@@ -18,11 +18,11 @@ window {
 
 #entry {
     padding: 4px 8px;
-    color: #efe0d5;
+    color: #eddfe3;
     border-radius: 4px;
 }
 
 #entry:selected {
-    background-color: #51443a;
-    color: #fdb876;
+    background-color: #504349;
+    color: #fbb0d7;
 }
