@@ -20,7 +20,7 @@
 
     "clock": {
         "format": "{:%A | %I:%M %p}",
-        "on-click": "ags toggle calendar"
+        "on-click": "ags toggle calendar -i ags"
     },
 
     "keyboard-state": {
@@ -90,7 +90,7 @@
 
     "custom/power": {
         "format": "󰣇",
-        "on-click": "GTK_THEME=Adwaita:dark wlogout",
+        "on-click": "ags toggle sidebar -i sidebar",
         "tooltip": false
     },
 

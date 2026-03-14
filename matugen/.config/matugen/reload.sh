@@ -25,7 +25,15 @@ waybar &
 
 # Restart ags calendar if config exists
 if [ -d ~/.config/ags ]; then
-    ags quit 2>/dev/null || true
+    ags quit -i ags 2>/dev/null || true
+    sleep 0.2
     ags run -d ~/.config/ags &
+fi
+
+# Restart ags sidebar if config exists
+if [ -d ~/.config/ags/sidebar ]; then
+    ags quit -i sidebar 2>/dev/null || true
+    sleep 0.2
+    ags run -d ~/.config/ags/sidebar &
 fi
 
